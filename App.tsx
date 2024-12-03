@@ -6,3 +6,6 @@ const App = () => {
     <Text>Hello</Text>
   </View>
 }
+
+
+export default App;
