@@ -1,8 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import AuthNavigator from './AuthNavigator';
 import HomeTabNavigator from './HomeTabNavigator';
+import {routes} from '../constants/routes';
+import OnboardingScreen from '../screens/AuthScreens/OnboardingScreen';
+import LoginScreen from '../screens/AuthScreens/LoginScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +21,22 @@ const AppNavigator = () => {
           }}
         />
       ) : (
-        <AuthNavigator />
+        <>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name={routes.onboarding}
+            component={OnboardingScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name={routes.login}
+            component={LoginScreen}
+          />
+        </>
       )}
     </Stack.Navigator>
   );
