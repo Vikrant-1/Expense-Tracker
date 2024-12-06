@@ -5,11 +5,12 @@ import HomeTabNavigator from './HomeTabNavigator';
 import {routes} from '../constants/routes';
 import OnboardingScreen from '../screens/AuthScreens/OnboardingScreen';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
+import { getCurrentUserId } from '../utils/firebase';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = getCurrentUserId();
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
