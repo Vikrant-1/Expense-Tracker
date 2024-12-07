@@ -1,8 +1,11 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Tile from '../../components/common/Tile';
+import {authSignOut} from '../../utils/firebase';
+import useLoader from '../../hooks/useLoader';
 
 const SettingScreen = () => {
+  const { showLoader,hideLoader,Loader} = useLoader();
   const settingsData = [
     {
       title: 'Account',
@@ -41,9 +44,17 @@ const SettingScreen = () => {
     },
   ];
 
-  const handleOnPressTile = () => {
-    
-  }
+  const handleOnPressTile = () => {};
+
+  const onPressLogout = async () => {
+    try {
+      showLoader();
+      await authSignOut();
+      hideLoader();
+    } catch (error) {
+      hideLoader();
+    }
+  };
   return (
     <ScrollView style={styles.screen}>
       {settingsData.map((item, index) => (
@@ -55,6 +66,8 @@ const SettingScreen = () => {
           onPress={handleOnPressTile}
         />
       ))}
+      <Button title="Logout" onPress={onPressLogout} />
+      <Loader/>
     </ScrollView>
   );
 };
