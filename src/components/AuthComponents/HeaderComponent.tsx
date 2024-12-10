@@ -1,6 +1,6 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {THEME} from '../../constants/colors';
+import {THEME, WHITE} from '../../constants/colors';
 
 export const AuthHeaderView = ({title, onPress}: {title: string; onPress: () => void}) => {
   return (
@@ -13,7 +13,7 @@ export const AuthHeaderView = ({title, onPress}: {title: string; onPress: () => 
       <TouchableOpacity onPress={onPress}>
         <Icon
           name="chevron-left"
-          color={THEME.keppel.DEFAULT}
+          color={THEME.midnight_green[900]}
           size={30}
           style={{width: 30}}
         />
@@ -22,7 +22,7 @@ export const AuthHeaderView = ({title, onPress}: {title: string; onPress: () => 
         style={{
           fontSize: 20,
           fontWeight: '600',
-          color: THEME.keppel.DEFAULT,
+          color: THEME.midnight_green[900],
         }}>
         {title}
       </Text>

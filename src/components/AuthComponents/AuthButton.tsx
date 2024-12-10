@@ -13,7 +13,7 @@ export const AuthButton = ({
   return (
     <LinearGradient
       style={styles.authButton}
-      colors={[THEME.keppel.DEFAULT, THEME.keppel[400]]}>
+      colors={[THEME.midnight_green[600], THEME.midnight_green[800]]}>
       <TouchableOpacity
         style={styles.authButtonView}
         onPress={() => onPress(type)}>

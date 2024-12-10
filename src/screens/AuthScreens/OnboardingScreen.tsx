@@ -1,4 +1,11 @@
-import {StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   GoogleSignin,
@@ -64,10 +71,10 @@ const OnboardingScreen = () => {
         style={[
           styles.bottomContainer,
           animatedViewStyle,
-          {width, backgroundColor: WHITE},
+          {width, backgroundColor: THEME.midnight_green.DEFAULT},
         ]}>
         {mode === ONBOARDING_MODE.ONBOARDING ? (
-          <View style={{marginTop: '5%'}}>
+          <View style={{marginTop: '10%'}}>
             <AuthButton type={ONBOARDING_MODE.LOGIN} onPress={onPressMode} />
             <AuthButton type={ONBOARDING_MODE.SIGNUP} onPress={onPressMode} />
           </View>
@@ -94,8 +101,8 @@ const styles = StyleSheet.create({
   bottomContainer: {
     position: 'absolute',
     bottom: 0,
-    borderTopLeftRadius: 34,
-    borderTopRightRadius: 34,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
 });
 
