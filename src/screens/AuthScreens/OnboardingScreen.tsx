@@ -1,42 +1,82 @@
-import { StyleSheet, View} from 'react-native';
-import React from 'react';
+import {StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { GOOGLE_WEB_CLIENT_ID } from '../../constants/keys';
+import {GOOGLE_WEB_CLIENT_ID} from '../../constants/keys';
 import useLoader from '../../hooks/useLoader';
-import { showToast } from '../../components/common/ToastBanner';
+import {showToast} from '../../components/common/ToastBanner';
+import {THEME, TRANSPARENT, WHITE} from '../../constants/colors';
+import {ONBOARDING_MODE} from '../../constants/authConstants';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import {AuthButton} from '../../components/AuthComponents/AuthButton';
+import LoginComponent from '../../components/AuthComponents/LoginComponent';
+import SignupComponent from '../../components/AuthComponents/SignupComponent';
 
 const OnboardingScreen = () => {
-  // configure google Sign up 
-  GoogleSignin.configure({
-    webClientId:GOOGLE_WEB_CLIENT_ID,
-  });
+  const {Loader, showLoader, hideLoader} = useLoader();
+  const {width, height} = useWindowDimensions();
+  const [mode, setMode] = useState(ONBOARDING_MODE.ONBOARDING);
 
-  const {Loader,showLoader,hideLoader } = useLoader();
+  const imageHeight = useSharedValue(height * 0.7);
+  const viewHeight = useSharedValue(height / 3);
 
-  const handleGoogleSignUp = async () => {
-    try {
-      showLoader();
-      await GoogleSignin.hasPlayServices();
-      const response = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        response.data?.idToken ?? '',
-      );
-      await auth().signInWithCredential(googleCredential);
-      hideLoader();
-      showToast({ title: 'Succesfully Logged In !!' });
-    } catch (err) {
-      hideLoader();
-      console.log(err);
-      showToast({ type: "error", title: 'Failed toLogin', message: err?.message || '' });
+  useEffect(() => {
+    if (mode === ONBOARDING_MODE.ONBOARDING) {
+      imageHeight.value = withTiming(height * 0.7, {duration: 500});
+      viewHeight.value = withTiming(height / 3, {duration: 500});
+    } else {
+      imageHeight.value = withTiming(height * 0.2, {duration: 500});
+      viewHeight.value = withTiming(height / 1.2, {duration: 500});
+    }
+  }, [mode, imageHeight, viewHeight]);
+
+  const animatedImageStyle = useAnimatedStyle(() => ({
+    height: imageHeight.value,
+  }));
+
+  const animatedViewStyle = useAnimatedStyle(() => ({
+    height: viewHeight.value,
+  }));
+
+  const onPressMode = (type: ONBOARDING_MODE) => {
+    if (type !== mode) {
+      setMode(type);
     }
   };
+
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <GoogleSigninButton onPress={handleGoogleSignUp} />
+    <View style={styles.container}>
+      <StatusBar translucent backgroundColor={TRANSPARENT} />
+      <Animated.View>
+        <Animated.Image
+          source={require('../../assets/onboarding.jpg')}
+          style={[animatedImageStyle, {width}]}
+        />
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.bottomContainer,
+          animatedViewStyle,
+          {width, backgroundColor: WHITE},
+        ]}>
+        {mode === ONBOARDING_MODE.ONBOARDING ? (
+          <View style={{marginTop: '5%'}}>
+            <AuthButton type={ONBOARDING_MODE.LOGIN} onPress={onPressMode} />
+            <AuthButton type={ONBOARDING_MODE.SIGNUP} onPress={onPressMode} />
+          </View>
+        ) : mode === ONBOARDING_MODE.LOGIN ? (
+          <LoginComponent onPressBack={onPressMode} />
+        ) : (
+          <SignupComponent onPressBack={onPressMode} />
+        )}
+      </Animated.View>
       <Loader />
     </View>
   );
@@ -44,4 +84,40 @@ const OnboardingScreen = () => {
 
 export default OnboardingScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  imageBackground: {
+    aspectRatio: 0.7,
+  },
+  bottomContainer: {
+    position: 'absolute',
+    bottom: 0,
+    borderTopLeftRadius: 34,
+    borderTopRightRadius: 34,
+  },
+});
+
+// configure google Sign up
+GoogleSignin.configure({
+  webClientId: GOOGLE_WEB_CLIENT_ID,
+});
+
+// const handleGoogleSignUp = async () => {
+//   try {
+//     showLoader();
+//     await GoogleSignin.hasPlayServices();
+//     const response = await GoogleSignin.signIn();
+//     const googleCredential = auth.GoogleAuthProvider.credential(
+//       response.data?.idToken ?? '',
+//     );
+//     await auth().signInWithCredential(googleCredential);
+//     hideLoader();
+//     showToast({ title: 'Succesfully Logged In !!' });
+//   } catch (err) {
+//     hideLoader();
+//     console.log(err);
+//     showToast({ type: "error", title: 'Failed toLogin', message: err?.message || '' });
+//   }
+// };
