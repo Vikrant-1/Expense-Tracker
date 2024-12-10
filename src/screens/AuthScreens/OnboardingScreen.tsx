@@ -94,6 +94,7 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:THEME.ash_gray[500]
   },
   imageBackground: {
     aspectRatio: 0.7,
@@ -110,21 +111,3 @@ const styles = StyleSheet.create({
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
 });
-
-// const handleGoogleSignUp = async () => {
-//   try {
-//     showLoader();
-//     await GoogleSignin.hasPlayServices();
-//     const response = await GoogleSignin.signIn();
-//     const googleCredential = auth.GoogleAuthProvider.credential(
-//       response.data?.idToken ?? '',
-//     );
-//     await auth().signInWithCredential(googleCredential);
-//     hideLoader();
-//     showToast({ title: 'Succesfully Logged In !!' });
-//   } catch (err) {
-//     hideLoader();
-//     console.log(err);
-//     showToast({ type: "error", title: 'Failed toLogin', message: err?.message || '' });
-//   }
-// };

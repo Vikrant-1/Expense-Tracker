@@ -22,7 +22,12 @@ const LoginComponent = ({onPressBack}: LoginComponentProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onPressSubmit = () => {};
+  const onPressSubmit = () => { };
+  
+
+  const onPressLogin = () => {
+
+  };
   return (
     <View style={styles.container}>
       <AuthHeaderView
@@ -32,12 +37,16 @@ const LoginComponent = ({onPressBack}: LoginComponentProps) => {
         title={'Welcome back'}
       />
       <View style={{marginTop: 20}}>
-        <CustomTextInput value={email} onChangeText={setEmail} />
+        {/* <CustomTextInput value={email} onChangeText={setEmail} />
         <CustomTextInput
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
-        />
+        /> */}
+
+        
+
+
        
       </View>
     </View>

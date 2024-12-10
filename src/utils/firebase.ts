@@ -7,3 +7,7 @@ export const getCurrentUserId = () => {
 export const authSignOut = async () => {
   return auth().signOut();
 };
+
+export const getAuthToken = async () => {
+  return ((await auth().currentUser?.getIdTokenResult())?.token);
+}
