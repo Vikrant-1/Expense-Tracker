@@ -22,6 +22,7 @@ import {loginThunk, signupThunk} from '../../store/thunk/userThunk';
 import { AppDispatch } from '../../store/store';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '../../constants/routes';
+import { resetRootNavigationTo } from '../../utils/navigationUtils';
 
 interface LoginComponentProps {
   onPressBack: (type: ONBOARDING_MODE) => void;
@@ -43,7 +44,7 @@ const LoginComponent = ({ onPressBack }: LoginComponentProps) => {
       await auth().signInWithCredential(googleCredential);
 
       await dispatch(loginThunk());
-      navigation.reset({index: 0, routes: []})
+      resetRootNavigationTo({screen:routes.tabs});
       hideLoader();
     } catch (err) {
       hideLoader();

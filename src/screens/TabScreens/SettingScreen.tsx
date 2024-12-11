@@ -3,9 +3,17 @@ import React from 'react';
 import Tile from '../../components/common/Tile';
 import {authSignOut} from '../../utils/firebase';
 import useLoader from '../../hooks/useLoader';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../store/store';
+import {setUserThunk} from '../../store/thunk/userThunk';
+import {CommonActions, useNavigation} from '@react-navigation/native';
+import {routes} from '../../constants/routes';
+import { resetRootNavigationTo } from '../../utils/navigationUtils';
 
 const SettingScreen = () => {
-  const { showLoader,hideLoader,Loader} = useLoader();
+  const {showLoader, hideLoader, Loader} = useLoader();
+  const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
   const settingsData = [
     {
       title: 'Account',
@@ -50,6 +58,8 @@ const SettingScreen = () => {
     try {
       showLoader();
       await authSignOut();
+      await dispatch(setUserThunk({ id: '' }));
+      resetRootNavigationTo({screen:routes.onboarding});
       hideLoader();
     } catch (error) {
       hideLoader();
@@ -67,7 +77,7 @@ const SettingScreen = () => {
         />
       ))}
       <Button title="Logout" onPress={onPressLogout} />
-      <Loader/>
+      <Loader />
     </ScrollView>
   );
 };

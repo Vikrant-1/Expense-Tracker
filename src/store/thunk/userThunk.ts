@@ -9,6 +9,23 @@ interface SignupData {
   isVerified: boolean;
 }
 
+interface userData {
+  id?: string;
+  name?: string;
+  email?: string;
+  avatar?: string;
+  isVerified?: boolean;
+}
+
+export const setUserThunk = createAsyncThunk(
+  'api/user/setuser',
+  async (data:userData, thunkAPI) => {
+    try {
+      return data;
+    } catch (error) {}
+  },
+);
+
 export const signupThunk = createAsyncThunk(
   'api/user/signup',
   async (data: SignupData, thunkAPI) => {
