@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {signupApi} from '../../apis/userApis';
+import {loginApi, signupApi} from '../../apis/userApis';
 
 // Define the type for your signup data
 interface SignupData {
@@ -14,6 +14,16 @@ export const signupThunk = createAsyncThunk(
   async (data: SignupData, thunkAPI) => {
     try {
       const response = await signupApi({data: data});
+      return response;
+    } catch (error) {}
+  },
+);
+
+export const loginThunk = createAsyncThunk(
+  'api/user/login',
+  async (_, thunkAPI) => {
+    try {
+      const response = await loginApi();
       return response;
     } catch (error) {}
   },

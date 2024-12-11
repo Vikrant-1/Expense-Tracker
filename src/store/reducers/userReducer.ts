@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {signupThunk} from '../thunk/userThunk';
+import {loginThunk, signupThunk} from '../thunk/userThunk';
 import {set} from 'lodash';
 
 interface CounterState {
@@ -15,10 +15,18 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(signupThunk.fulfilled, (state, action) => {
-      const userData = action.payload ?? {};
-      set(state, '', userData);
-    });
+    builder
+      .addCase(signupThunk.fulfilled, (state, action) => {
+        const userData = action.payload ?? {};
+        set(state, '', userData);
+      })
+      .addCase(signupThunk.rejected, (state,action) => {
+        
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        const userData = action.payload ?? {};
+        set(state, '', userData);
+      });
   },
 });
 
