@@ -1,10 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/userReducer';
-import { USER } from '../constants/store';
+import expenseReducer from './reducers/expenseReducer';
+import groupReducer from './reducers/groupReducer';
+
+
+import { GROUP, USER ,EXPENSE } from '../constants/store';
 
 
 const reducers = combineReducers({
- [USER]:userReducer,
+  [USER]: userReducer,
+  [EXPENSE]: expenseReducer,
+  [GROUP]:groupReducer,
 });
 
 export const store = configureStore({

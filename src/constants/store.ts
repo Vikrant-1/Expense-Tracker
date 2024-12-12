@@ -1,1 +1,3 @@
-export const USER = 'user';
+export const USER = 'userState';
+export const GROUP = 'groupState';
+export const EXPENSE = 'expenseState';
