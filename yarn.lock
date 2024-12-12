@@ -6336,6 +6336,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-contacts@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-8.0.4.tgz#3bc791497a8442321cbc4bc1a93ac51622d8e8d1"
+  integrity sha512-uBwYlavWS1KjULKk7xLCZcLr6vQcmqLIeHzWY+MEKGtT28YjAlWG87N0bCaRKZSXvz/o/09tVqzU0ZOpkkJC1w==
+
 react-native-dynamic@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dynamic/-/react-native-dynamic-1.0.0.tgz#d971618fd278cf66acb0add46536aa7a68fd8d4f"
@@ -6359,6 +6364,11 @@ react-native-linear-gradient@^2.8.3:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz#9a116649f86d74747304ee13db325e20b21e564f"
   integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
+
+react-native-permissions@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-5.2.1.tgz#b028b7bc60d813588d8d3f2b80f19d1f67ba907f"
+  integrity sha512-F8CaDVi+zYjl2pO4Fwh5n5SCi5s0TvvRzQnczb8nwkzHJTv6HqlO6Sj1ZmqrAeuCN06b5Ysu9BEWhK4qT4ekXg==
 
 react-native-reanimated@^3.16.3:
   version "3.16.3"
