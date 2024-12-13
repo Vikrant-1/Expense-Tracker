@@ -38,13 +38,16 @@ const ContactListScreen = () => {
         <FlatList
           data={contacts}
           keyExtractor={item => item.recordId}
-          renderItem={({item}) => (
-            <ContactTile
-              {...item}
-              isSelected={selectedContacts.includes(item.recordId)}
-              onPress={onPress}
-            />
-          )}
+          renderItem={({item}) => {
+            const isSelected = selectedContacts.includes(item.recordId);
+            return (
+              <ContactTile
+                {...item}
+                isSelected={isSelected}
+                onPress={onPress}
+              />
+            );
+          }}
         />
       ) : (
         <Text>

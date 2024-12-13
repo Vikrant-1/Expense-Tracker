@@ -23,28 +23,26 @@ const ContactTile = ({
   hasThumbnail,
   thumbnailPath,
   recordId,
-  isSelected = true,
+  isSelected,
   onPress,
 }: ContactTileProps) => {
-    const scale = useSharedValue(0);
-    const opacity = useSharedValue(0);
-    
+  const scale = useSharedValue(0);
+  const opacity = useSharedValue(0);
 
   useEffect(() => {
     if (isSelected) {
-        opacity.value = withTiming(0);
-        scale.value = withSpring(0, { damping: 10, stiffness: 150})
+      opacity.value = withTiming(1, {duration: 200});
+      scale.value = withSpring(1, {damping: 10, stiffness: 150});
     } else {
-        opacity.value = withTiming(1, {duration:200});
-        scale.value = withSpring(1, { damping: 10, stiffness: 150 });
-        
+      opacity.value = withTiming(0);
+      scale.value = withSpring(0, {damping: 10, stiffness: 150});
     }
   }, [isSelected]);
 
   const checkIconStyles = useAnimatedStyle(() => {
     return {
-        transform: [{ scale: scale.value }],
-        opacity:opacity.value,
+      transform: [{scale: scale.value}],
+      opacity: opacity.value,
     };
   });
 
@@ -57,11 +55,7 @@ const ContactTile = ({
           ) : (
             <Icon size={30} name="people" style={styles.defaultAvatar} />
           )}
-          <Animated.View
-            style={[
-              checkIconStyles,
-              {position: 'absolute', bottom: 0, right: 0},
-            ]}>
+          <Animated.View style={[checkIconStyles, styles.checkIcon]}>
             <Icon
               style={{width: '100%', height: '100%'}}
               size={20}
@@ -119,5 +113,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: THEME.dark_cyan[200],
     marginTop: 2,
+  },
+  checkIcon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    opacity:0,
   },
 });
