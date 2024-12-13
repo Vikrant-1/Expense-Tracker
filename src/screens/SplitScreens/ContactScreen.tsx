@@ -4,6 +4,7 @@ import useContactsPermission from '../../hooks/useContactsPermission';
 import useLoader from '../../hooks/useLoader';
 import ContactTile from '../../components/SplitComponents/ContactTile';
 import {WHITE} from '../../constants/colors';
+import ContactHeader from '../../components/SplitComponents/ContactHeader';
 
 // need to add a tile and pick a contacts view
 // we can keep max as 10 or 20 may be
@@ -30,34 +31,42 @@ const ContactListScreen = () => {
     }
   };
 
+  if (loading) {
+    return <Text>need to add loader here </Text>;
+  }
+
+  if (!hasPermission) {
+    return (
+      <Text>No permission to access contacts. Please allow from settings.</Text>
+    );
+  }
+
+  if (hasPermission === null) {
+    return <Button title="Request Permission" onPress={requestPermission} />;
+  }
+
   return (
     <View style={{flex: 1, padding: 10, backgroundColor: WHITE}}>
-      {loading ? (
-        <Text>need to add loader here </Text>
-      ) : hasPermission ? (
-        <FlatList
-          data={contacts}
-          keyExtractor={item => item.recordId}
-          renderItem={({item}) => {
-            const isSelected = selectedContacts.includes(item.recordId);
-            return (
-              <ContactTile
-                {...item}
-                isSelected={isSelected}
-                onPress={onPress}
-              />
-            );
-          }}
-        />
-      ) : (
-        <Text>
-          No permission to access contacts. Please allow from settings.
-        </Text>
-      )}
+      <ContactHeader selectedContacts={selectedContacts} />
 
-      {hasPermission === null && (
-        <Button title="Request Permission" onPress={requestPermission} />
-      )}
+      <FlatList
+        data={contacts}
+        keyExtractor={item => item.recordId}
+        ListHeaderComponent={
+          <Text
+            style={{
+              fontSize: 18,
+            }}>
+            Contacts
+          </Text>
+        }
+        renderItem={({item}) => {
+          const isSelected = selectedContacts.includes(item.recordId);
+          return (
+            <ContactTile {...item} isSelected={isSelected} onPress={onPress} />
+          );
+        }}
+      />
     </View>
   );
 };
