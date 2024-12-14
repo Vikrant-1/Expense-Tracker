@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, Button, View} from 'react-native';
+import {Text, Button, View, FlatList} from 'react-native';
 import useContactsPermission from '../../hooks/useContactsPermission';
 import ContactTile from '../../components/SplitComponents/ContactTile';
 import {WHITE} from '../../constants/colors';
@@ -11,14 +11,15 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
-// need to add a tile and pick a contacts view
-// we can keep max as 10 or 20 may be
-// keep tile may be same as settings
+
 const ContactListScreen = () => {
   const styles = useDynamicStyleSheet(dynamicStyles);
   const {hasPermission, contacts, loading, requestPermission} =
     useContactsPermission();
   const flatListTranslateY = useSharedValue(0);
+  const titleTranslateX = useSharedValue(0);
+  const titleOpacity = useSharedValue(0);
+
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
 
   useEffect(() => {
@@ -29,15 +30,31 @@ const ContactListScreen = () => {
 
   useEffect(() => {
     if (selectedContacts.length <= 0) {
-      flatListTranslateY.value = withTiming(0, {duration: 400});
+      flatListTranslateY.value = withTiming(-30, {duration: 400});
+      titleTranslateX.value = withTiming(100, {duration: 400});
+      titleOpacity.value = withTiming(0, {duration: 400});
     } else {
-      flatListTranslateY.value = withTiming(150, {duration: 400});
+      flatListTranslateY.value = withTiming(160, {duration: 400});
+      titleTranslateX.value = withTiming(0, {duration: 400});
+      titleOpacity.value = withTiming(1, {duration: 400});
     }
-  }, [selectedContacts.length, flatListTranslateY]);
+  }, [
+    selectedContacts.length,
+    flatListTranslateY,
+    titleTranslateX,
+    titleOpacity,
+  ]);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{translateY: flatListTranslateY.value}],
+    };
+  });
+
+  const titleAnimatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{translateX: titleTranslateX.value}],
+      opacity: titleOpacity.value,
     };
   });
 
@@ -72,20 +89,26 @@ const ContactListScreen = () => {
         selectedContacts={selectedContacts}
         removeContact={onPress}
       />
-
-      <Animated.FlatList
-        data={contacts}
-        style={[animatedStyles, styles.flatlist]}
-        contentContainerStyle={styles.flatlistContent}
-        keyExtractor={item => item.recordId}
-        ListHeaderComponent={<Text style={styles.title}>Contacts</Text>}
-        renderItem={({item}) => {
-          const isSelected = selectedContacts.includes(item.recordId);
-          return (
-            <ContactTile {...item} isSelected={isSelected} onPress={onPress} />
-          );
-        }}
-      />
+      <Animated.View style={[animatedStyles, styles.flatlistView]}>
+        <Animated.Text style={[styles.title, titleAnimatedStyles]}>
+          Contacts
+        </Animated.Text>
+        <FlatList
+          data={contacts}
+          contentContainerStyle={styles.flatlistContent}
+          keyExtractor={item => item.recordId}
+          renderItem={({item}) => {
+            const isSelected = selectedContacts.includes(item.recordId);
+            return (
+              <ContactTile
+                {...item}
+                isSelected={isSelected}
+                onPress={onPress}
+              />
+            );
+          }}
+        />
+      </Animated.View>
     </View>
   );
 };
@@ -100,12 +123,16 @@ const dynamicStyles = new DynamicStyleSheet({
   },
   title: {
     fontSize: 18,
+    fontWeight: '500',
+    marginLeft: 10,
+    marginTop: 10,
   },
-  flatlist: {
+  flatlistView: {
     position: 'absolute',
+    width: '100%',
   },
   flatlistContent: {
-    width:'100%',
+    width: '100%',
     marginHorizontal: 10,
   },
 });

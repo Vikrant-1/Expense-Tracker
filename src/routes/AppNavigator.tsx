@@ -1,18 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeTabNavigator from './HomeTabNavigator';
 import {routes} from '../constants/routes';
 import OnboardingScreen from '../screens/AuthScreens/OnboardingScreen';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
-import {getCurrentUserId} from '../utils/firebase';
 import ContactListScreen from '../screens/SplitScreens/ContactScreen';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        animation:'fade',
+      }}>
       <Stack.Screen
         name="tabs"
         component={HomeTabNavigator}
@@ -38,6 +40,9 @@ const AppNavigator = () => {
       <Stack.Screen
         name={routes.contacts}
         component={ContactListScreen}
+        options={{
+          headerTitle: 'Contacts',
+        }}
       />
     </Stack.Navigator>
   );
