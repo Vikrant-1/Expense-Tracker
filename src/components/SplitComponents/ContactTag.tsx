@@ -30,12 +30,12 @@ const ContactTag = ({
   useEffect(() => {
     if (isSelected) {
       opacity.value = withTiming(1, {duration: 500});
-      scale.value = withSpring(1, {damping: 17,stiffness:150});
+      scale.value = withSpring(1, {damping: 17, stiffness: 150});
     } else {
       opacity.value = withTiming(0, {duration: 500});
-      scale.value = withSpring(0, {damping: 17,stiffness:150});
+      scale.value = withSpring(0, {damping: 17, stiffness: 150});
     }
-  }, [isSelected, scale, opacity]);
+  }, [isSelected, scale, opacity, recordId, removeContact]);
 
   const animtedStyles = useAnimatedStyle(() => {
     return {
@@ -52,7 +52,13 @@ const ContactTag = ({
         <Icon size={30} name="people" style={styles.defaultAvatar} />
       )}
       <Text style={styles.name}>{displayName || phoneNumber}</Text>
-      <Icon onPress={()=>removeContact(recordId)} style={styles.icon} size={25} color={'gray'} name="cancel" />
+      <Icon
+        onPress={() => removeContact(recordId)}
+        style={styles.icon}
+        size={25}
+        color={'gray'}
+        name="cancel"
+      />
     </Animated.View>
   );
 };
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 30,
     position: 'relative',
-    paddingVertical:10,
+    paddingVertical: 10,
   },
   avatar: {
     width: 70,
@@ -85,10 +91,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
     color: THEME.dark_cyan[300],
-    marginTop:7,
+    marginTop: 7,
   },
   icon: {
-    width:27,
+    width: 27,
     position: 'absolute',
     right: -5,
   },

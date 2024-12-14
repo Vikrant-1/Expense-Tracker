@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, FlatList} from 'react-native';
 import useContactsPermission from '../../hooks/useContactsPermission';
 import ContactTile from '../../components/SplitComponents/ContactTile';
 import {WHITE} from '../../constants/colors';
 import ContactHeader from '../../components/SplitComponents/ContactHeader';
 import {DynamicStyleSheet, useDynamicStyleSheet} from 'react-native-dynamic';
-import Animated from 'react-native-reanimated';
 
 // need to add a tile and pick a contacts view
 // we can keep max as 10 or 20 may be
@@ -54,7 +53,7 @@ const ContactListScreen = () => {
         removeContact={onPress}
       />
 
-      <Animated.FlatList
+      <FlatList
         data={contacts}
         keyExtractor={item => item.recordId}
         ListHeaderComponent={<Text style={styles.title}>Contacts</Text>}
