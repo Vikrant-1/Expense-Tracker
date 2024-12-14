@@ -1,6 +1,8 @@
+import {PressableAndroidRippleConfig} from 'react-native';
+
 export const WHITE = '#FFF';
 export const BLACK = '#000';
-export const BLACK_40 = "rgba(0, 0, 0, 0.4)";
+export const BLACK_40 = 'rgba(0, 0, 0, 0.4)';
 export const TRANSPARENT = 'transparent';
 
 export const THEME = {
@@ -124,4 +126,11 @@ export const THEME = {
     800: '#e7f0ec',
     900: '#f3f7f5',
   },
+};
+
+export const androidRipple: PressableAndroidRippleConfig = {
+  color: THEME.keppel[500],
+  borderless: false,
+  radius: 70,
+  foreground: false,
 };

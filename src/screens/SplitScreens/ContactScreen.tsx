@@ -11,6 +11,7 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import FloatingButton from '../../components/touchablesComp/FloatingButton';
 
 const ContactListScreen = () => {
   const styles = useDynamicStyleSheet(dynamicStyles);
@@ -109,6 +110,7 @@ const ContactListScreen = () => {
           }}
         />
       </Animated.View>
+      <FloatingButton/>
     </View>
   );
 };
