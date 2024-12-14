@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import useContactsPermission from '../../hooks/useContactsPermission';
-import useLoader from '../../hooks/useLoader';
 import ContactTile from '../../components/SplitComponents/ContactTile';
 import {WHITE} from '../../constants/colors';
 import ContactHeader from '../../components/SplitComponents/ContactHeader';
+import {DynamicStyleSheet, useDynamicStyleSheet} from 'react-native-dynamic';
+import Animated from 'react-native-reanimated';
 
 // need to add a tile and pick a contacts view
 // we can keep max as 10 or 20 may be
 // keep tile may be same as settings
 const ContactListScreen = () => {
+  const styles = useDynamicStyleSheet(dynamicStyles);
   const {hasPermission, contacts, loading, requestPermission} =
     useContactsPermission();
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
@@ -18,7 +20,7 @@ const ContactListScreen = () => {
     if (hasPermission === false) {
       requestPermission();
     }
-  }, [hasPermission]);
+  }, [hasPermission, requestPermission]);
 
   const onPress = (recordId: string) => {
     const hasRecord = selectedContacts.includes(recordId);
@@ -46,20 +48,16 @@ const ContactListScreen = () => {
   }
 
   return (
-    <View style={{flex: 1, padding: 10, backgroundColor: WHITE}}>
-      <ContactHeader selectedContacts={selectedContacts} />
+    <View style={styles.container}>
+      <ContactHeader
+        selectedContacts={selectedContacts}
+        removeContact={onPress}
+      />
 
-      <FlatList
+      <Animated.FlatList
         data={contacts}
         keyExtractor={item => item.recordId}
-        ListHeaderComponent={
-          <Text
-            style={{
-              fontSize: 18,
-            }}>
-            Contacts
-          </Text>
-        }
+        ListHeaderComponent={<Text style={styles.title}>Contacts</Text>}
         renderItem={({item}) => {
           const isSelected = selectedContacts.includes(item.recordId);
           return (
@@ -72,3 +70,14 @@ const ContactListScreen = () => {
 };
 
 export default ContactListScreen;
+
+const dynamicStyles = new DynamicStyleSheet({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: WHITE,
+  },
+  title: {
+    fontSize: 18,
+  },
+});

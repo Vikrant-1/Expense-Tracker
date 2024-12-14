@@ -1,12 +1,10 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
-import ScaleView from '../touchablesComp/ScaleView';
 import {ContactProps} from '../../hooks/useContactsPermission';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {THEME, WHITE} from '../../constants/colors';
 import Animated, {
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withSpring,
   withTiming,
@@ -37,7 +35,7 @@ const ContactTile = ({
       opacity.value = withTiming(0);
       scale.value = withSpring(0, {damping: 10, stiffness: 150});
     }
-  }, [isSelected]);
+  }, [isSelected, opacity, scale]);
 
   const checkIconStyles = useAnimatedStyle(() => {
     return {
@@ -57,7 +55,7 @@ const ContactTile = ({
           )}
           <Animated.View style={[checkIconStyles, styles.checkIcon]}>
             <Icon
-              style={{width: '100%', height: '100%'}}
+              style={styles.icon}
               size={20}
               color={'green'}
               name="check-circle"
@@ -118,6 +116,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    opacity:0,
+    opacity: 0,
+  },
+  icon: {
+    width: '100%',
+    height: '100%',
   },
 });

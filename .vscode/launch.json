@@ -4,7 +4,8 @@
             "type": "radon-ide",
             "request": "launch",
             "name": "Radon IDE panel",
-            "android": {}
+            "android": {},
+            "ios": {}
         }
     ]
 }

@@ -1,18 +1,25 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
 import Animated from 'react-native-reanimated';
 import ContactTag from './ContactTag';
 import useContactsPermission from '../../hooks/useContactsPermission';
 
-const ContactHeader = ({selectedContacts}: {selectedContacts: string[]}) => {
-  const {contacts} = useContactsPermission();
+
+interface ContactHeaderProps {
+  selectedContacts: string[];
+  removeContact: (recordId: string) => void;
+}
+
+const ContactHeader = ({selectedContacts,removeContact}: ContactHeaderProps) => {
+  const { contacts } = useContactsPermission();
   return (
     <View>
       <Animated.FlatList
         data={selectedContacts}
         horizontal
-        renderItem={({item, index}) => {
-          const contact = contacts.find(_c => _c.recordId == item);
+        keyExtractor={(item)=>item}
+        renderItem={({item}) => {
+          const contact = contacts.find(_c => _c.recordId === item);
           if (!contact) {
             return <Text>Malformed Contact</Text>;
           }
@@ -24,6 +31,8 @@ const ContactHeader = ({selectedContacts}: {selectedContacts: string[]}) => {
               thumbnailPath={contact?.thumbnailPath}
               displayName={contact?.displayName}
               phoneNumber={contact?.phoneNumber}
+              isSelected={contact.recordId === item}
+              removeContact={removeContact}
             />
           );
         }}
@@ -33,5 +42,3 @@ const ContactHeader = ({selectedContacts}: {selectedContacts: string[]}) => {
 };
 
 export default ContactHeader;
-
-const styles = StyleSheet.create({});
