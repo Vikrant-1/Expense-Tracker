@@ -9,6 +9,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import { DynamicStyleSheet, useDynamicStyleSheet } from 'react-native-dynamic';
 
 interface ContactTagProps extends ContactProps {
   isSelected: boolean;
@@ -24,6 +25,7 @@ const ContactTag = ({
   isSelected,
   removeContact,
 }: ContactTagProps) => {
+  const styles = useDynamicStyleSheet(dynamicStyles);
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
 
@@ -65,7 +67,7 @@ const ContactTag = ({
 
 export default ContactTag;
 
-const styles = StyleSheet.create({
+const dynamicStyles = new DynamicStyleSheet({
   tag: {
     alignItems: 'center',
     marginRight: 30,
@@ -79,18 +81,18 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   defaultAvatar: {
-    backgroundColor: THEME.ash_gray[900],
+    backgroundColor: THEME.background.DEFAULT,
     width: 70,
     height: 70,
     borderRadius: 35,
     textAlign: 'center',
     textAlignVertical: 'center',
-    color: THEME.ash_gray[300],
+    color: THEME.text.primary,
   },
   name: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: THEME.dark_cyan[300],
+    color: THEME.text.primary,
     marginTop: 7,
   },
   icon: {

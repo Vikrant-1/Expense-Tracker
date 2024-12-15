@@ -9,6 +9,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import {DynamicStyleSheet, useDynamicStyleSheet} from 'react-native-dynamic';
 
 interface ContactTileProps extends ContactProps {
   isSelected: boolean;
@@ -24,6 +25,7 @@ const ContactTile = ({
   isSelected,
   onPress,
 }: ContactTileProps) => {
+  const styles = useDynamicStyleSheet(dynamicStyles);
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
 
@@ -73,7 +75,7 @@ const ContactTile = ({
 
 export default ContactTile;
 
-const styles = StyleSheet.create({
+const dynamicStyles = new DynamicStyleSheet({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -90,13 +92,13 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   defaultAvatar: {
-    backgroundColor: THEME.ash_gray[900],
+    backgroundColor: THEME.background.DEFAULT,
     width: 50,
     height: 50,
     borderRadius: 25,
     textAlign: 'center',
     textAlignVertical: 'center',
-    color: THEME.ash_gray[300],
+    color: THEME.text.primary,
   },
   infoContainer: {
     flex: 1,
@@ -105,11 +107,12 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: THEME.dark_cyan[300],
+    color: THEME.text.primary,
   },
   phoneNumber: {
     fontSize: 14,
-    color: THEME.dark_cyan[200],
+    color: THEME.text.primary,
+
     marginTop: 2,
   },
   checkIcon: {

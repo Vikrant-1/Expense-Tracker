@@ -71,7 +71,7 @@ const OnboardingScreen = () => {
         style={[
           styles.bottomContainer,
           animatedViewStyle,
-          {width, backgroundColor: THEME.midnight_green.DEFAULT},
+          {width, backgroundColor: WHITE},
         ]}>
         {mode === ONBOARDING_MODE.ONBOARDING ? (
           <View style={{marginTop: '10%'}}>
@@ -94,7 +94,7 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:THEME.ash_gray[500]
+    backgroundColor:WHITE
   },
   imageBackground: {
     aspectRatio: 0.7,

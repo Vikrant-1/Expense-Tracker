@@ -2,6 +2,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {ONBOARDING_MODE} from '../../constants/authConstants';
 import {THEME, WHITE} from '../../constants/colors';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { DynamicStyleSheet, useDynamicStyleSheet } from 'react-native-dynamic';
 
 export const AuthButton = ({
   type,
@@ -9,11 +10,12 @@ export const AuthButton = ({
 }: {
   type: ONBOARDING_MODE;
   onPress: (type: ONBOARDING_MODE) => void;
-}) => {
+  }) => {
+  const styles = useDynamicStyleSheet(dynamicStyles);
   return (
     <LinearGradient
       style={styles.authButton}
-      colors={[THEME.midnight_green[600], THEME.midnight_green[800]]}>
+      colors={['#EF4444', '#FCA5A5']}>
       <TouchableOpacity
         style={styles.authButtonView}
         onPress={() => onPress(type)}>
@@ -25,7 +27,7 @@ export const AuthButton = ({
   );
 };
 
-const styles = StyleSheet.create({
+const dynamicStyles = new DynamicStyleSheet({
   authButton: {
     borderRadius: 16,
     marginTop: 20,

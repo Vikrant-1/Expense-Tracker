@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Text, Button, View, FlatList} from 'react-native';
 import useContactsPermission from '../../hooks/useContactsPermission';
 import ContactTile from '../../components/SplitComponents/ContactTile';
-import {WHITE} from '../../constants/colors';
+import {BLACK, WHITE} from '../../constants/colors';
 import ContactHeader from '../../components/SplitComponents/ContactHeader';
-import {DynamicStyleSheet, useDynamicStyleSheet} from 'react-native-dynamic';
+import {DynamicStyleSheet, DynamicValue, useDynamicStyleSheet} from 'react-native-dynamic';
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -121,7 +121,7 @@ const dynamicStyles = new DynamicStyleSheet({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: WHITE,
+    backgroundColor: new DynamicValue(WHITE,BLACK),
   },
   title: {
     fontSize: 18,
