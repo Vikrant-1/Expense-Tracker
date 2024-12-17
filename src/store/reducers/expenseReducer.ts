@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 interface ExpenseStateProps{
-
+    expenses: [];
 };
 
-const initialState:ExpenseStateProps = {
-
+const initialState: ExpenseStateProps = {
+    expenses:[],
 };
 
 const expenseSlice = createSlice({

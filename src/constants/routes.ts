@@ -6,5 +6,6 @@ export const routes  = {
     settings: 'settings',
     expenses: 'expenses',
     splitexpense: 'splitexpense',
-    contacts:'contacts',
+    contacts: 'contacts',
+    addexpense:'addexpense',
 }

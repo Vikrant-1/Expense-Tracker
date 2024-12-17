@@ -5,6 +5,7 @@ import {routes} from '../constants/routes';
 import OnboardingScreen from '../screens/AuthScreens/OnboardingScreen';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
 import ContactListScreen from '../screens/SplitScreens/ContactScreen';
+import AddExpenseScreen from '../screens/AddExpenseScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ const AppNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerTitleAlign: 'center',
-        animation:'fade',
+        animation: 'fade',
       }}>
       <Stack.Screen
         name="tabs"
@@ -42,6 +43,13 @@ const AppNavigator = () => {
         component={ContactListScreen}
         options={{
           headerTitle: 'Contacts',
+        }}
+      />
+      <Stack.Screen
+        name={routes.addexpense}
+        component={AddExpenseScreen}
+        options={{
+          headerTitle: 'Add Expense',
         }}
       />
     </Stack.Navigator>
