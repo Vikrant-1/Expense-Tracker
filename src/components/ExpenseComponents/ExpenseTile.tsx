@@ -15,8 +15,8 @@ const ExpenseTile = ({expense}: ExpenseTileProps) => {
       <Card.Title
         title={expense.name}
         right={props => (
-          <Text {...props} variant="bodyMedium">
-            {expense.amount}
+          <Text style={styles.amount} {...props} variant="bodyMedium">
+            ${expense.amount}
           </Text>
         )}
         subtitle={getFormattedDate(
@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   amount: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '700',
+    marginRight: 7,
   },
   description: {
     fontSize: 16,
