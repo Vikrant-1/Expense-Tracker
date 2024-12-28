@@ -12,6 +12,7 @@ import ExpenseFilterView from '../../components/ExpenseComponents/ExpenseFilterV
 import {groupExpensesByMonth} from '../../utils/expense';
 import ExpenseTile from '../../components/ExpenseComponents/ExpenseTile';
 import ExpenseMonthHeader from '../../components/ExpenseComponents/ExpenseMonthHeader';
+import { AnimatedFAB } from 'react-native-paper';
 
 const ExpenseScreen = () => {
   const navigation = useNavigation();
@@ -37,6 +38,10 @@ const ExpenseScreen = () => {
     );
   }
 
+  const onPressAddExpense = () => {
+    navigation.navigate(routes.addexpense);
+  }
+
   return (
     <View style={{flex: 1,backgroundColor:'white'}}>
       <ExpenseFilterView />
@@ -49,6 +54,15 @@ const ExpenseScreen = () => {
         renderSectionHeader={({section: {title, amount}}) => (
           <ExpenseMonthHeader date={title} amount={amount} />
         )}
+      />
+        <AnimatedFAB
+        icon={'plus'}
+        label={'Label'}
+        extended={false}
+        onPress={onPressAddExpense}
+        visible={true}
+        style={{position:'absolute',bottom:65,right:20}}
+        iconMode={'static'}
       />
     </View>
   );

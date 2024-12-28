@@ -6,6 +6,9 @@ import OnboardingScreen from '../screens/AuthScreens/OnboardingScreen';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
 import ContactListScreen from '../screens/SplitScreens/ContactScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
+import {TouchableOpacity} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { BackIcon } from '../components/navigationComponents';
 
 const Stack = createStackNavigator();
 
@@ -48,9 +51,12 @@ const AppNavigator = () => {
       <Stack.Screen
         name={routes.addexpense}
         component={AddExpenseScreen}
-        options={{
+        options={({navigation}) => ({
           headerTitle: 'Add Expense',
-        }}
+          presentation: 'modal',
+          animation: 'slide_from_bottom',
+          headerLeft: () => <BackIcon/>,
+        })}
       />
     </Stack.Navigator>
   );
