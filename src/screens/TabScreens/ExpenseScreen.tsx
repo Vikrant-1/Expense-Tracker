@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {FlatList, SectionList, StyleSheet, View} from 'react-native';
+import React, {useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import {
   getAllExpenseSelector,
@@ -8,14 +8,18 @@ import {
 import {EmptyScreenView} from '../../components/common/EmptyView';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../constants/routes';
-import ExpenseTile from '../../components/ExpenseComponents/ExpenseTile';
 import ExpenseFilterView from '../../components/ExpenseComponents/ExpenseFilterView';
+import {groupExpensesByMonth} from '../../utils/expense';
+import ExpenseTile from '../../components/ExpenseComponents/ExpenseTile';
+import ExpenseMonthHeader from '../../components/ExpenseComponents/ExpenseMonthHeader';
 
 const ExpenseScreen = () => {
+  const navigation = useNavigation();
   const hasExpenses = useSelector(hasExpenseSelector);
   const expenses = useSelector(getAllExpenseSelector);
-  const navigation = useNavigation();
-
+  const sectionData = useMemo(() => {
+    return groupExpensesByMonth(expenses);
+  }, [expenses]);
   if (!hasExpenses) {
     return (
       <EmptyScreenView
@@ -27,10 +31,24 @@ const ExpenseScreen = () => {
       />
     );
   }
-  return (
-    <View style={{ flex: 1 }}>
-      <ExpenseFilterView/>
 
+  const formattedExpenseDates = expenses.map((expense) => {
+    const date = new Date(expense.expenseDate * 1000); // Convert from seconds to milliseconds
+    return date.toLocaleDateString(); // Format as locale-specific date string
+  });
+
+  return (
+    <View style={{flex: 1}}>
+      <ExpenseFilterView />
+
+      <SectionList
+        sections={sectionData}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <ExpenseTile expense={item} />}
+        renderSectionHeader={({section: {title, amount}}) => (
+          <ExpenseMonthHeader date={title} amount={amount} />
+        )}
+      />
     </View>
   );
 };

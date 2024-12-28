@@ -9,7 +9,8 @@ interface ExpenseTileProps {
   expense: ExpenseInterface;
 }
 
-const ExpenseTile = ({expense}: ExpenseTileProps) => {
+const ExpenseTile = ({ expense }: ExpenseTileProps) => {
+  
   return (
     <Card style={styles.card}>
       <Card.Title
@@ -20,7 +21,7 @@ const ExpenseTile = ({expense}: ExpenseTileProps) => {
           </Text>
         )}
         subtitle={getFormattedDate(
-          expense.updatedBy?.updatedAt ?? expense.createdBy.createdAt,
+          expense.expenseDate,
           dd_MMMM,
         )}
       />
