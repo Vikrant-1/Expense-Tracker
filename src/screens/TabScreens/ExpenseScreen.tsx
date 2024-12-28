@@ -9,6 +9,7 @@ import {EmptyScreenView} from '../../components/common/EmptyView';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../constants/routes';
 import ExpenseTile from '../../components/ExpenseComponents/ExpenseTile';
+import ExpenseFilterView from '../../components/ExpenseComponents/ExpenseFilterView';
 
 const ExpenseScreen = () => {
   const hasExpenses = useSelector(hasExpenseSelector);
@@ -28,7 +29,8 @@ const ExpenseScreen = () => {
   }
   return (
     <View style={{ flex: 1 }}>
-      <ExpenseTile expense={expenses[0]} />
+      <ExpenseFilterView/>
+
     </View>
   );
 };
