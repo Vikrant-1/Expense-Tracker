@@ -1,6 +1,6 @@
 export interface CreatedBy {
     id: string;
-    createdAt?: number;
+    createdAt: number;
   }
   
   export interface UpdatedBy {
