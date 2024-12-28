@@ -17,7 +17,7 @@ const ExpenseTile = ({ expense }: ExpenseTileProps) => {
         title={expense.name}
         right={props => (
           <Text style={styles.amount} {...props} variant="bodyMedium">
-            ${expense.amount}
+            ${expense.amount.toFixed(2)}
           </Text>
         )}
         subtitle={getFormattedDate(
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 16,
     fontWeight: '700',
-    marginRight: 7,
+    marginRight: 10,
   },
   description: {
     fontSize: 16,
