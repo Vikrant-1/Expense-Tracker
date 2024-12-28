@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const ExpenseMonthHeader = ({amount, date}: {amount: number; date: string}) => {
+const ExpenseMonthHeader = ({ amount, date }: { amount: number; date: string }) => {  
   return (
     <View style={styles.header}>
       <Text style={styles.dateText}>{date}</Text>
@@ -27,13 +27,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   dateText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 20,
     color: '#333',
   },
   amountText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#4caf50',
+    color: 'rgba(103, 80, 164, 1)',
   },
 });

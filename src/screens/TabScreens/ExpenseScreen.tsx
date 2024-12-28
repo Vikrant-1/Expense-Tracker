@@ -43,6 +43,7 @@ const ExpenseScreen = () => {
 
       <SectionList
         sections={sectionData}
+        contentContainerStyle={{ paddingBottom: 100 }}
         keyExtractor={item => item.id}
         renderItem={({item}) => <ExpenseTile expense={item} />}
         renderSectionHeader={({section: {title, amount}}) => (
