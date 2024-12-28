@@ -1,5 +1,5 @@
 import {FlatList, SectionList, StyleSheet, View} from 'react-native';
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {
   getAllExpenseSelector,
@@ -17,9 +17,17 @@ const ExpenseScreen = () => {
   const navigation = useNavigation();
   const hasExpenses = useSelector(hasExpenseSelector);
   const expenses = useSelector(getAllExpenseSelector);
+  const [filterData, setFilterData] = useState();
   const sectionData = useMemo(() => {
     return groupExpensesByMonth(expenses);
   }, [expenses]);
+
+  const filteredData = useMemo(() => { 
+    
+
+    return sectionData;
+
+  }, [sectionData,filterData]);
   if (!hasExpenses) {
     return (
       <EmptyScreenView
@@ -32,17 +40,13 @@ const ExpenseScreen = () => {
     );
   }
 
-  const formattedExpenseDates = expenses.map((expense) => {
-    const date = new Date(expense.expenseDate * 1000); // Convert from seconds to milliseconds
-    return date.toLocaleDateString(); // Format as locale-specific date string
-  });
 
   return (
     <View style={{flex: 1}}>
       <ExpenseFilterView />
 
       <SectionList
-        sections={sectionData}
+        sections={filteredData}
         contentContainerStyle={{ paddingBottom: 100 }}
         keyExtractor={item => item.id}
         renderItem={({item}) => <ExpenseTile expense={item} />}
