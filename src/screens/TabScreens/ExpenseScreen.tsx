@@ -1,4 +1,4 @@
-import {FlatList, SectionList, StyleSheet, View} from 'react-native';
+import {SectionList, StyleSheet, View} from 'react-native';
 import React, {useMemo, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {
@@ -22,12 +22,9 @@ const ExpenseScreen = () => {
     return groupExpensesByMonth(expenses);
   }, [expenses]);
 
-  const filteredData = useMemo(() => { 
-    
-
+  const filteredData = useMemo(() => {
     return sectionData;
-
-  }, [sectionData,filterData]);
+  }, [sectionData, filterData]);
   if (!hasExpenses) {
     return (
       <EmptyScreenView
@@ -40,14 +37,13 @@ const ExpenseScreen = () => {
     );
   }
 
-
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white'}}>
       <ExpenseFilterView />
 
       <SectionList
         sections={filteredData}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{paddingBottom: 100}}
         keyExtractor={item => item.id}
         renderItem={({item}) => <ExpenseTile expense={item} />}
         renderSectionHeader={({section: {title, amount}}) => (
